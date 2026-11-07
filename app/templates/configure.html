@@ -1,0 +1,15 @@
+{% extends 'base.html' %}{% block title %}Configurar {{ tabla }}{% endblock %}
+{% block content %}
+<div class="eyebrow"><a href="{{ url_for('index') }}">TABLAS</a> / CONFIGURACIÓN</div>
+<h1>{{ esquema }}<span class="muted">.</span>{{ tabla }}</h1>
+<p class="lead">Marca las operaciones que quieres auditar por cada columna. Si deshabilitas una operación general, se omite en toda la tabla.</p>
+<form method="post" class="panel form-panel"><input type="hidden" name="csrf" value="{{ csrf_token() }}">
+<div class="section-row"><div><h2>Estado general</h2><p>Los registros antiguos se conservan aunque desactives la auditoría.</p></div><label class="check"><input name="enabled" type="checkbox" {% if configured is none or configured.habilitada %}checked{% endif %}> Auditoría habilitada</label></div>
+<div class="section-row"><div><h2>Operaciones habilitadas</h2><p>La regla global se aplica después de las reglas individuales.</p></div><div class="checks">
+{% for op in ['INSERT','UPDATE','DELETE'] %}<label class="check"><input name="global_{{ op }}" type="checkbox" {% if op in active_ops %}checked{% endif %}>{{ op }}</label>{% endfor %}</div></div>
+<h2>Columnas a monitorear</h2><div class="overflow"><table><thead><tr><th>Columna</th><th>Tipo SQL</th><th class="center">INSERT</th><th class="center">UPDATE</th><th class="center">DELETE</th></tr></thead>
+<tbody>{% for c in columns %}{% set idx = loop.index0 %}<tr><td><strong>{{ c.nombre }}</strong></td><td><code>{{ c.tipo }}</code></td>
+{% for op in ['INSERT','UPDATE','DELETE'] %}<td class="center"><input type="checkbox" aria-label="Auditar {{ op }} de {{ c.nombre }}" name="column_{{ idx }}_{{ op }}" {% if (c.nombre, op) in active_rules %}checked{% endif %}></td>{% endfor %}
+</tr>{% endfor %}</tbody></table></div>
+<div class="actions"><button type="submit">Guardar y generar triggers</button><a class="text-link" href="{{ url_for('historial') }}">Ver historial</a></div>
+</form>{% endblock %}

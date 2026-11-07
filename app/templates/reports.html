@@ -1,0 +1,16 @@
+{% extends 'base.html' %}{% block title %}Historial{% endblock %}
+{% block content %}
+<div class="eyebrow">CONSULTA Y REPORTES</div><h1>Historial de modificaciones</h1><p class="lead">Filtra por usuario, columna, operación y fechas. Orden cronológico descendente.</p>
+<form class="panel filters" method="get">
+<label>Usuario de BD<input type="text" name="usuario" value="{{ filters.get('usuario','') }}" placeholder="Ej.: postgres"></label>
+<label>Columna<input type="text" name="columna" value="{{ filters.get('columna','') }}" placeholder="Ej.: saldo"></label>
+<label>Operación<select name="operacion"><option value="">Todas</option>{% for op in ['INSERT','UPDATE','DELETE'] %}<option value="{{ op }}" {% if filters.get('operacion')==op %}selected{% endif %}>{{ op }}</option>{% endfor %}</select></label>
+<label>Desde<input type="date" name="inicio" value="{{ filters.get('inicio','') }}"></label>
+<label>Hasta<input type="date" name="fin" value="{{ filters.get('fin','') }}"></label>
+<button type="submit">Aplicar filtros</button>
+</form>
+<div class="panel"><div class="panel-title"><div><h2>Eventos recientes</h2><p>Máximo 500 en pantalla, 10 000 en CSV</p></div><a class="small-btn" href="{{ url_for('exportar') }}?{{ request.query_string.decode() }}">Exportar CSV</a></div>
+<div class="overflow"><table><thead><tr><th>Fecha y hora</th><th>Origen</th><th>Operación</th><th>Usuario</th><th>Columnas</th><th></th></tr></thead>
+<tbody>{% for r in rows %}<tr><td>{{ r.fecha_hora.strftime('%d/%m/%Y %H:%M:%S %Z') }}</td><td><code>{{ r.esquema }}.{{ r.tabla }}</code></td><td><span class="pill {{ r.operacion|lower }}">{{ r.operacion }}</span></td><td>{{ r.usuario }}</td><td>{{ r.columnas }}</td><td><a class="small-btn" href="{{ url_for('registro', registro_id=r.id) }}">Ver</a></td></tr>
+{% else %}<tr><td colspan="6">No hay cambios que coincidan con los filtros.</td></tr>{% endfor %}</tbody></table></div>
+</div>{% endblock %}

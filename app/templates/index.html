@@ -1,0 +1,14 @@
+{% extends 'base.html' %}{% block title %}Tablas{% endblock %}
+{% block content %}
+<div class="eyebrow">PANEL DE CONTROL</div>
+<h1>Auditoría de datos, bajo control.</h1>
+<p class="lead">Configura qué tablas, columnas y operaciones deseas registrar. Los triggers AFTER se crean automáticamente.</p>
+<div class="stats"><div><small>Registros en bitácora</small><strong>{{ total }}</strong></div><div><small>Tablas disponibles</small><strong>{{ tables|length }}</strong></div><div><small>Motor</small><strong>PostgreSQL 18</strong></div></div>
+<section class="panel"><div class="panel-title"><h2>Tablas disponibles</h2><span class="subtle">Selecciona una para configurar</span></div>
+<div class="overflow"><table><thead><tr><th>Esquema</th><th>Tabla</th><th>Estado</th><th>Columnas</th><th>Operaciones</th><th></th></tr></thead>
+<tbody>{% for t in tables %}<tr><td><code>{{ t.esquema }}</code></td><td><strong>{{ t.tabla }}</strong></td>
+<td>{% if t.habilitada %}<span class="pill active">Activa</span>{% else %}<span class="pill">Sin activar</span>{% endif %}</td>
+<td>{{ t.columnas or 0 }}</td><td>{{ t.operaciones or 0 }}</td>
+<td><a class="small-btn" href="{{ url_for('configurar', esquema=t.esquema, tabla=t.tabla) }}">Configurar</a></td></tr>
+{% else %}<tr><td colspan="6">No hay tablas de usuario disponibles. Ejecuta sql/05_demo.sql para crear un ejemplo.</td></tr>{% endfor %}</tbody></table></div></section>
+{% endblock %}

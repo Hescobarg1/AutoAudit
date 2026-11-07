@@ -1,0 +1,10 @@
+{% extends 'base.html' %}{% block title %}Evento #{{ row.id }}{% endblock %}
+{% block content %}
+<div class="eyebrow"><a href="{{ url_for('historial') }}">HISTORIAL</a> / REGISTRO #{{ row.id }}</div>
+<h1>Evento #{{ row.id }} <span class="pill {{ row.operacion|lower }}">{{ row.operacion }}</span></h1>
+<p class="lead">{{ row.esquema }}.{{ row.tabla }} · {{ row.fecha_hora }} · usuario {{ row.usuario }} · IP {{ row.ip_origen or 'Conexión local' }}</p>
+<div class="panel"><h2>Cambios por columna</h2><div class="overflow"><table><thead><tr><th>Columna</th><th>Anterior</th><th>Nuevo</th></tr></thead><tbody>
+{% for d in details %}<tr><td><strong>{{ d.nombre_columna }}</strong></td><td><code>{{ d.valor_anterior }}</code></td><td><code>{{ d.valor_nuevo }}</code></td></tr>{% endfor %}
+</tbody></table></div></div>
+<div class="grid-two"><div class="panel"><h2>Fila anterior (JSONB)</h2><pre>{{ before }}</pre></div><div class="panel"><h2>Fila nueva (JSONB)</h2><pre>{{ after }}</pre></div></div>
+{% endblock %}

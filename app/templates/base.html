@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}AutoAudit{% endblock %} | Base de datos</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="nav shell">
+  <a class="brand" href="{{ url_for('index') }}"><span class="logo">A</span><span>Auto<span class="brand-accent">Audit</span><small>PostgreSQL 18</small></span></a>
+  <nav><a href="{{ url_for('index') }}">Configuración</a><a href="{{ url_for('historial') }}">Historial</a></nav>
+</header>
+<main class="shell">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</main>
+<footer class="shell footer">AutoAudit · Sistema de auditoría automatizada · UMG · 2026</footer>
+</body></html>
