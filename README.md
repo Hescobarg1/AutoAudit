@@ -62,7 +62,7 @@ cp .env.example .env
 python run.py
 ```
 
-La interfaz queda en `http://127.0.0.1:5000` (con autenticación HTTP Basic). **No publique este servidor de desarrollo en Internet.** En un despliegue real, use HTTPS, proxy autenticado y servidor WSGI.
+La interfaz queda en `http://127.0.0.1:5000` (con autenticación HTTP Basic). 
 
 **5. Ejemplo opcional y pruebas:**
 
@@ -102,7 +102,6 @@ Para activarlo nuevamente, establezca `TRUE` en el último parámetro. El SQL va
 
 ```text
 AutoAudit/
-├── docs/                    # PDF técnico, MER/ER, diccionario y manuales
 ├── sql/                     # DDL, PL/pgSQL, seguridad, consultas y demostración
 ├── app/                     # Interfaz Flask, HTML y CSS
 ├── tests/                   # Pruebas transaccionales y rendimiento
