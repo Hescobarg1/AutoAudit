@@ -13,7 +13,6 @@ Proyecto del curso **Bases de Datos I**, Universidad Mariano Gálvez de Guatemal
 - Interfaz web administrativa local en Flask.
 - Pruebas de INSERT, UPDATE, DELETE, desactivación, reactivación y rendimiento.
 
-> **Importante:** el enunciado menciona «PL/SQL», pero el lenguaje de procedimientos de PostgreSQL es **PL/pgSQL**. Esta implementación usa PL/pgSQL, compatible con PostgreSQL 18.
 
 ## Requisitos
 
@@ -139,10 +138,3 @@ git push -u origin main
 
 Reemplace `USUARIO` por su usuario y cree antes el repositorio vacío en GitHub. El archivo `.gitignore` evita subir `.env`.
 
-## Documentación
-
-- `docs/DOCUMENTACION_TECNICA.pdf`: documento técnico listo para entregar tras incorporar nombres del equipo y resultados medidos de las pruebas.
-- `docs/DIAGRAMA_ER.png`: diagrama ER exportado, junto con `DIAGRAMA_ER.dot`.
-- `docs/DICCIONARIO_DATOS.md`: columnas, tipos, claves y relaciones.
-- `docs/MANUAL_CONFIGURACION.md`: guía de uso, instalación y despliegue.
-- `docs/PLAN_PRUEBAS.md`: casos, resultados esperados y forma de registrar resultados reales.
