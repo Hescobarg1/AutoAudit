@@ -1,0 +1,23 @@
+digraph AutoAudit_ER {
+  graph [rankdir=LR, bgcolor="white", fontname="DejaVu Sans", nodesep="0.55", ranksep="0.9", pad="0.3", splines=polyline];
+  node [shape=record, style="filled", fillcolor="#f5f9ff", color="#8faccb", fontname="DejaVu Sans", fontsize=11, penwidth=1.1];
+  edge [color="#54718e", fontname="DejaVu Sans", fontsize=9, arrowsize=0.7];
+  tabla [label="{TABLA_AUDITADA|PK id\lesquema\ltabla\lhabilitada\l}",fillcolor="#e5edff"];
+  columna [label="{COLUMNA_AUDITADA|PK id\lFK tabla_id\lcolumna\lhabilitada\l}"];
+  evento [label="{EVENTO_AUDITADO|PK id\lFK tabla_id\loperacion\lhabilitado\l}"];
+  ce [label="{COLUMNA_EVENTO|PK id\lFK columna_id\lFK evento_id\lhabilitado\l}"];
+  usuario [label="{USUARIO_AUDITADO|PK id\lnombre\l}"];
+  estacion [label="{ESTACION_TRABAJO|PK id\lip_origen\laplicacion\l}"];
+  bitacora [label="{BITACORA|PK id\lFK tabla_id\lFK evento_id\lFK usuario_id\lFK estacion_id\loperacion, fecha_hora\lregistro_anterior, registro_nuevo\lclave_primaria\l}",fillcolor="#e5faf2"];
+  detalle [label="{DETALLE_CAMBIO|PK id\lFK bitacora_id\lFK columna_id\lnombre_columna\lvalor_anterior, valor_nuevo\l}",fillcolor="#e5faf2"];
+  tabla -> columna [label="1:N"];
+  tabla -> evento [label="1:N"];
+  columna -> ce [label="1:N"];
+  evento -> ce [label="1:N"];
+  tabla -> bitacora [label="1:N"];
+  evento -> bitacora [label="1:N"];
+  usuario -> bitacora [label="1:N"];
+  estacion -> bitacora [label="1:N"];
+  bitacora -> detalle [label="1:N"];
+  columna -> detalle [label="1:N"];
+}
